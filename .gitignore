@@ -1,0 +1,15 @@
+# Prerequisites & Build outputs
+*.o
+*.out
+*.exe
+bin/
+build/
+*.dSYM/
+
+# Editor / OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
