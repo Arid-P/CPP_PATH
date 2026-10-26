@@ -28,3 +28,30 @@ Record of atomic verification questions, verbatim student answers, grading, and 
 - **Statement 7:** Correct. (Linux shells search `$PATH`; the current directory `.` is not searched by default).
 
 **Result:** 7 / 7 Correct (100%). Checkpoint P3-1 verified.
+
+---
+
+## Checkpoint P3-2 Verification (CPP-03, CPP-04 Part 1, CPP-05)
+
+### Statements:
+1. Brace initialization (`int x{5};`) triggers a compile-time error if the provided value would result in a narrowing conversion (such as converting a floating-point literal to an integer).
+2. An uninitialized local variable defined as `int a;` is guaranteed by the C++ standard to be initialized to zero.
+3. The `constexpr` keyword specifies that a variable's value must be computable at compile time and cannot depend on runtime input.
+4. A `const` variable in C++ must always have its value known before compilation begins.
+5. In C++, `sizeof(char)` is guaranteed by the language standard to be at least 2 bytes to accommodate Unicode characters.
+6. In C++, a `char` variable physically stores a small integer corresponding to an ASCII character code.
+7. The `unsigned int` type can represent both negative and positive integers, but has twice the range of a signed `int`.
+
+### Student Answers (Verbatim):
+`t, f, t, f, f, t, f,`
+
+### Grading & Notes:
+- **Statement 1:** Correct. (Brace init strictly forbids narrowing conversions like double $\to$ int).
+- **Statement 2:** Correct. (Local variables left uninitialized have indeterminate garbage values).
+- **Statement 3:** Correct. (`constexpr` forces compile-time evaluation and immutability).
+- **Statement 4:** Correct. (`const` can be initialized from runtime values like user input).
+- **Statement 5:** Correct. (`sizeof(char)` is defined by the standard to be exactly 1 byte).
+- **Statement 6:** Correct. (`char` is an 8-bit integral type storing ASCII/character byte codes).
+- **Statement 7:** Correct. (`unsigned int` represents non-negative values $[0, 2^{32}-1]$ only).
+
+**Result:** 7 / 7 Correct (100%). Checkpoint P3-2 verified.
