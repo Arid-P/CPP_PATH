@@ -30,10 +30,11 @@ My personal notebook, mental models, and cheat sheets as I transition from Pytho
 | Concept | Python | C++ | My Notes / Differences |
 | :--- | :--- | :--- | :--- |
 | **Output** | `print("Hello")` | `std::cout << "Hello\n";` | `<<` pushes data to stream; no auto-newline |
-| **Input** | `x = int(input())` | `int x{}; std::cin >> x;` | `>>` extracts and converts directly to variable type |
+| **Input** | `x = int(input())` | `int x{}; std::cin >> x;` | `>>` extracts and converts directly to variable type bcz the data type is predefine. NOTE: cin automatically skips the leading whitespace so `10 20` is equivalent to `10` enter `20`  |
 | **Blocks** | 4-space indentation | `{ ... }` curly braces | Whitespace is ignored by the compiler |
 | **Statements** | Newline terminated | Semicolon `;` terminated | Every expression statement requires `;` |
 | **Typing** | Dynamic (`x = 5`) | Static (`int x{5};`) | Type is fixed at compile-time; memory is allocated |
+|**Quotes**|Both ', " are same ata stype, ie, string|In cpp ', " are different data types. ' are char while " are string|In cpp char data type is a single character (1 byte), eg, '2', '4', 'Z', etc. While strings are a sequence/array of multiple characters|
 
 ---
 
