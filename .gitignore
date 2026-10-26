@@ -1,4 +1,4 @@
-# Prerequisites & Build outputs
+# Prerequisites & Object files
 *.o
 *.out
 *.exe
@@ -6,10 +6,18 @@ bin/
 build/
 *.dSYM/
 
+# Linux binaries in block1_bits (ignore everything, then unignore source files)
+block1_bits/*
+!block1_bits/*/
+!block1_bits/*.cpp
+!block1_bits/*.h
+!block1_bits/*.hpp
+!block1_bits/*.md
+!block1_bits/python_reference/
+
 # Editor / OS files
 .vscode/
 .idea/
 *.swp
 *.swo
 .DS_Store
-
