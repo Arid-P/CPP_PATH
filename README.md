@@ -35,6 +35,9 @@ My personal notebook, mental models, and cheat sheets as I transition from Pytho
 | **Statements** | Newline terminated | Semicolon `;` terminated | Every expression statement requires `;` |
 | **Typing** | Dynamic (`x = 5`) | Static (`int x{5};`) | Type is fixed at compile-time; memory is allocated |
 |**Quotes**|Both ', " are same ata stype, ie, string|In cpp ', " are different data types. ' are char while " are string|In cpp char data type is a single character (1 byte), eg, '2', '4', 'Z', etc. While strings are a sequence/array of multiple characters|
+|Variable initialisation|Dynamic, and dnt thorugh assignmkent operator|Static and several methods to assign. Modern C++ {}|The {} is prevelant bcz it raises compile time error if the value inside it doesnt match the data type defined. Like int x = 4.8 truncated 4.9 to 4; while int x{4.9}raises a compile time error to tell to change the value or data type|
+|Constants|No run time compulsion, only practice (PI = .14)|Enforced through two ways: const and constexpr|<br>**const**: Runtime or compile time constant. Once initialized, it can never change.You can initalise it form inputs like cin. <br>**constexpr**: Compile time constant. Must be defined before the conpilation occurs. <br> `constexpr int gravity{10};`<br> `user_choice{input};` |
+|Data Types|Fixed but not very good|Also fixed but a wide variety and can be used accordingnnto the use| Refer to [Variable Types](/notes/03_variables_types_and_const.md#L51)|
 
 ---
 
