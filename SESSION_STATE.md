@@ -1,10 +1,11 @@
 # Phase 3: Block 1 (C++) Session State
 
 - **Current Chat:** Chat 1 of 4
-- **Current Checkpoint:** P3-1 (Awaiting Verification Q&A)
-- **Checkpoints Done:** None (P3-1 in verification)
+- **Current Checkpoint:** P3-2 (In Progress)
+- **Checkpoints Done:**
+  - P3-1 (CPP-01, CPP-02, Cold-Write Sum, Verification 7/7)
 - **Atoms Achieved:**
-  - CPP-01: Compilation pipeline (preprocess, compile, assemble, link), manual linking with `g++ -c`, GCC verification.
+  - CPP-01: Compilation pipeline (preprocess, compile, assemble, link), manual link with `g++ -c`, GCC verification.
   - CPP-02: `main()`, statements, `#include <iostream>`, `std::cout`, `std::cin`, cold-write sum program.
 - **Atoms Partial:** None
 - **Q&A File:** `qna_and_verification_bank.md`
