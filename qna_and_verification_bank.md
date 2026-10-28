@@ -83,3 +83,31 @@ Record of atomic verification questions, verbatim student answers, grading, and 
 
 **Result:** 7 / 7 Correct (100%). Checkpoint P3-3 verified.
 
+---
+
+## Checkpoint P3-4 Verification (CPP-07, Python Reference Ports)
+
+### Statements:
+1. In C++, a `switch` statement can directly evaluate a `std::string` variable to match string `case` labels.
+2. If a `case` in a C++ `switch` statement does not end with a `break;` statement, execution falls through and executes the statements of the subsequent `case` regardless of whether the next label matches.
+3. In a C++ `for` loop defined as `for (int i{0}; i < 10; ++i)`, the variable `i` remains in scope and accessible after the loop's closing brace.
+4. A `do-while` loop in C++ is guaranteed to execute its loop body at least once, even if the condition evaluates to `false` before the loop begins.
+5. In C++, executing a `continue;` statement inside a `for` loop skips the rest of the loop body and jumps directly to the increment expression (`++i`).
+6. In Euclid's GCD algorithm, computing `a % b` when `a < b` (for example, `12 % 18`) produces `0`.
+7. A C++ function declared with a `void` return type must return `0` at the end using `return 0;`.
+
+### Student Answers (Verbatim):
+`f, t, f, t, t, f, f`
+
+### Grading & Notes:
+- **Statement 1:** Correct. (`switch` statements only support integral types and enums; `std::string` is rejected by the compiler).
+- **Statement 2:** Correct. (Without `break;`, execution falls through into subsequent cases).
+- **Statement 3:** Correct. (Loop variables declared in the `for` initialization clause are block-scoped to the loop).
+- **Statement 4:** Correct. (`do-while` evaluates its test expression at the bottom of the loop body).
+- **Statement 5:** Correct. (`continue;` skips remaining loop statements and advances directly to the increment step).
+- **Statement 6:** Correct. (`12 % 18` evaluates to `12`, allowing Euclid's algorithm to swap arguments naturally).
+- **Statement 7:** Correct. (`void` functions cannot return any value; `return 0;` triggers a compiler error).
+
+**Result:** 7 / 7 Correct (100%). Checkpoint P3-4 verified.
+
+
