@@ -55,3 +55,31 @@ Record of atomic verification questions, verbatim student answers, grading, and 
 - **Statement 7:** Correct. (`unsigned int` represents non-negative values $[0, 2^{32}-1]$ only).
 
 **Result:** 7 / 7 Correct (100%). Checkpoint P3-2 verified.
+
+---
+
+## Checkpoint P3-3 Verification (CPP-04 Part 2, CPP-06)
+
+### Statements:
+1. In C++, integer overflow on a signed type like `int` is defined by the standard to wrap around to negative numbers, just like unsigned integers.
+2. In C++, `#include <cstdint>` guarantees that `std::uint32_t` is exactly 32 bits wide regardless of whether the program runs on 32-bit Windows or 64-bit Linux.
+3. In C++, the expression `-7 / 2` evaluates to `-3` because integer division truncates towards zero.
+4. In C++, the result of `a % b` always takes the sign of the divisor `b`.
+5. In C++, `std::cout << val;` where `val` is of type `std::uint8_t` holding `65` will print the number `65` to the console by default.
+6. The prefix increment expression `++x` increments `x` and evaluates to the new, incremented value of `x`.
+7. In the expression `(false && func())`, the function `func()` is guaranteed never to be executed due to short-circuit evaluation.
+
+### Student Answers (Verbatim):
+`f, t, t, f, f, t, t`
+
+### Grading & Notes:
+- **Statement 1:** Correct. (Signed integer overflow is Undefined Behavior in C++, whereas unsigned arithmetic has well-defined modular wraparound).
+- **Statement 2:** Correct. (`<cstdint>` fixed-width types like `std::uint32_t` guarantee exact bit width across platforms).
+- **Statement 3:** Correct. (C++ integer division truncates toward zero; $-3.5$ truncates to $-3$).
+- **Statement 4:** Correct. (In C++, `a % b` takes the sign of the dividend `a`, unlike Python which takes the sign of the divisor `b`).
+- **Statement 5:** Correct. (`std::uint8_t` is aliased to `unsigned char`, causing `std::cout` to format it as ASCII character `'A'`).
+- **Statement 6:** Correct. (`++x` pre-increments and yields the updated value; `x++` post-increments and yields the old value).
+- **Statement 7:** Correct. (Logical AND `&&` short-circuits if the left operand evaluates to `false`).
+
+**Result:** 7 / 7 Correct (100%). Checkpoint P3-3 verified.
+

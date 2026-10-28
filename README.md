@@ -38,15 +38,36 @@ My personal notebook, mental models, and cheat sheets as I transition from Pytho
 |Variable initialisation|Dynamic, and dnt thorugh assignmkent operator|Static and several methods to assign. Modern C++ {}|The {} is prevelant bcz it raises compile time error if the value inside it doesnt match the data type defined. Like int x = 4.8 truncated 4.9 to 4; while int x{4.9}raises a compile time error to tell to change the value or data type|
 |Constants|No run time compulsion, only practice (PI = .14)|Enforced through two ways: const and constexpr|<br>**const**: Runtime or compile time constant. Once initialized, it can never change.You can initalise it form inputs like cin. <br>**constexpr**: Compile time constant. Must be defined before the conpilation occurs. <br> `constexpr int gravity{10};`<br> `user_choice{input};` |
 |Data Types|Fixed but not very good|Also fixed but a wide variety and can be used accordingnnto the use| Refer to [Variable Types](/notes/03_variables_types_and_const.md#L51)|
+|**Fixed Width integer**|No such thing|It provides exact bit (byte) size for different integers, so that least memory is wasted. In windows and linux the default size for a data type can change (long, 32 bits on windows, 64 on linux).| To prevent this, C++ provides exact-size types via `#include <cstdint>`: <br> - `std::int8_t` / `std::uint8_t` (1 byte, 8 bits) <br> - `std::int16_t` / `std::uint16_t` (2 bytes, 16 bits) <br> - `std::int32_t` / `std::uint32_t` (4 bytes, 32 bits) <br> - `std::int64_t` / `std::uint64_t` (8 bytes, 64 bits) <br>(u means unsigned, positive numbers only)|
+|Overflow|Doesnt happen (can but very rare)|It is of two types, <br>1. Unsigned Overflow (for unsigned integer)[Well defined]<br>2.Signed overflow (for signed intgers) [Undefined behaviour]|For unsigned overflow/wraparound, cpp just performs modulo ${2}^{N}$. For `std::uint8_t` (range $0$ to $255$), $255+1$ is guaranteed to wrap around to $0$.<br>If a signed overflow occurs thne there is not garuntte, the programmight crash, produce garbage, or compiler's optimizer might erase your safety checks assuming overflow "is impossible".|
+|**Arithmetic Operators**|AS yOU HAVE STUDIED|A slight difference in division(`/`) and modulo (`%`)|C++ integer division `/` **truncates toward zero** (discards fractional part). So `-7 / 3` is `-2` (line int(-7 / 2)) in python.<br>C++ modulo `%` takes the **sign of the dividend** (the left-hand side / numerator). So `-7 % 3` is -`1`.|
+|**Formula Garunteed for Modulo**|Check Python|$`dividend=\frac{dividend}{divisor}\cdot divisor + {dividend}%{divisor}`$|See the above point|
+|**Increment Operators**|No direct ones available|Two types, pre-increment (`++x`) and post increment (`x++`)|When used as a standalone statement, `++x`; and `x++`; do the same thing: add 1. However, **inside an expression, their return values differ**:<br>`++x` **(Prefix)**: Increments first, then returns the new value.<br>`x++` **(Postfix)**: Increments, but returns a copy of the old value.,br. Refer to [Gotcha 2](/README.md#L63) for an example|
+|**s**|s|s|s|
+|**s**|s|s|s|
+|**s**|s|s|s|
+
 
 ---
 
 ## 3. Personal Gotchas & "Aha!" Moments
 
-None Yet
+- **Gotcha 1:** On Linux GCC, `std::uint8_t` is defined under the hood as `unsigned char`. If you pass it directly to `std::cout`, it **treats it as a character glyph (ASCII)** rather than a number:
+  ```cpp
+  // Syntax snippet: casting a byte to display as a number
+  #include <cstdint>
+  #include <iostream>
+  std::uint8_t byte_val{65};
+  std::cout << byte_val << '\n';                    // Prints 'A' (ASCII 65)
+  std::cout << static_cast<int>(byte_val) << '\n';  // Prints 65 (numeric)
+  ```
 
-- **Gotcha 1:**
-- **Gotcha 2:**
+- **Gotcha 2:** Pre and Post Increment Operators, they are best expained by an example as given below:  (Understand both, but make a habit of using mostly one type)
+  ```cpp
+  int a{5};
+  int b = ++a; // a is 6, b is 6
+  int c = a++; // a is 7, c is 6
+  ```
 
 ---
 
