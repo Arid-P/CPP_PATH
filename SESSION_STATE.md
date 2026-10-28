@@ -18,6 +18,6 @@
   - CPP-07: Control flow (`if`/`else if`/`else`, `switch` on integral values with jump tables and fallthrough behavior, `while`, `do-while`, `for` loop with block-scoped counter, `break`, `continue`), user-defined functions with `void`, `int`, `bool` return types.
 - **Atoms Partial:** None
 - **Q&A File:** `qna_and_verification_bank.md`
-- **Reported Student Hours:** 2 hrs (Chat 1) + [Pending Chat 2 confirmation]
+- **Reported Student Hours:** 6.0 hrs total (Chat 1: 2.0 hrs, Chat 2: 4.0 hrs)
 - **Next Checkpoint:** P3-5 (Chat 3: Functions in-depth, pass-by-value vs pass-by-reference, header files, multi-file builds)
 - **Open Issues:** None
