@@ -1,8 +1,8 @@
 #include <iostream>
 
-int main () {
+int main() {
     // Try to get compile eror
-    //int x{4.9};
+    // int x{4.9};
     int x{4};
     std::cout << x << '\n';
 
@@ -13,7 +13,7 @@ int main () {
     std::cout << "double: " << sizeof(double) << '\n';
     std::cout << "long: " << sizeof(long) << '\n';
 
-    constexpr int gravity {10};
+    constexpr int gravity{10};
     std::cout << "Gravitational Acceleration: " << gravity << '\n';
 
     double input{};
@@ -23,8 +23,9 @@ int main () {
     std::cout << "PI: " << pi << '\n';
 
     char letter{'A'};
-    std::cout << "Letter:" <<  letter << '\n';
-    std::cout << "The ASCII value of the above letter: " << static_cast<int>(letter) << '\n';
+    std::cout << "Letter:" << letter << '\n';
+    std::cout << "The ASCII value of the above letter: "
+              << static_cast<int>(letter) << '\n';
 
     return 0;
 }

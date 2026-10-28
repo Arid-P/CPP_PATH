@@ -14,6 +14,7 @@ block1_bits/*
 !block1_bits/*.hpp
 !block1_bits/*.md
 !block1_bits/python_reference/
+block1_bits/r.cpp
 
 # Editor / OS files
 .vscode/
@@ -21,3 +22,5 @@ block1_bits/*
 *.swp
 *.swo
 .DS_Store
+
+.clang-format
