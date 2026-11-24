@@ -24,3 +24,5 @@ block1_bits/r.cpp
 .DS_Store
 
 .clang-format
+# Documentation symlink
+Journey_Docs
