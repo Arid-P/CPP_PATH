@@ -24,3 +24,6 @@ block_*/src/*
 .clang-format
 # Documentation symlink
 Journey_Docs
+
+#random code pieces
+r.*
