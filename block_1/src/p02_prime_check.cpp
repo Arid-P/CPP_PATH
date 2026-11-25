@@ -1,16 +1,22 @@
 #include <iostream>
 
-bool is_prime(int n) {
-    if (n == 2) {
-        return true;
+int is_prime(int n) {
+    if (n <= 0) {
+        std::cout << "The number must be a posiive integer" << '\n';
+        return -1;
+    } else if (n == 1) {
+        std::cout << "The number 1 is neither prime or composite." << '\n';
+        return -1;
+    } else if (n == 2) {
+        return 1;
     }
 
-    for (int d{2}; d * d <= n; d++) {
+    for (int d{2}; d <= n / d; d++) {
         if (n % d == 0) {
-            return false;
+            return 0;
         }
     }
-    return true;
+    return 1;
 }
 
 int main() {
@@ -18,19 +24,11 @@ int main() {
     std::cout << "Enter a number :";
     std::cin >> n;
 
-    if (n <= 0) {
-        std::cout << "The number must be a posiive integer" << '\n';
-        return 0;
-    } else if (n == 1) {
-        std::cout << "The number 1 is neither prime or composite." << '\n';
-        return 0;
-    }
+    int prime{is_prime(n)};
 
-    bool prime{is_prime(n)};
-
-    if (prime) {
+    if (prime == 1) {
         std::cout << "The number is prime" << '\n';
-    } else {
+    } else if (prime == 0) {
         std::cout << "The number is composite" << '\n';
     }
 

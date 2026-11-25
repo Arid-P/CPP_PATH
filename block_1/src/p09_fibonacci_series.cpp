@@ -1,9 +1,10 @@
+#include <cstdint>
 #include <iostream>
 
 void first_n_terms(int n) {
     std::cout << "First " << n << " terms of the Fibonacci series: " << '\n';
 
-    int a{0}, b{1};
+    std::int64_t a{0}, b{1};
     for (int i{1}; i <= n; i++) {
         if (i == n) {
             std::cout << a << '\n';
@@ -11,7 +12,7 @@ void first_n_terms(int n) {
             std::cout << a << ", ";
         }
 
-        int temp{a};
+        std::int64_t temp{a};
         a = b;
         b += temp;
     }
@@ -19,13 +20,13 @@ void first_n_terms(int n) {
     return;
 }
 
-void terms_upto_m(int m) {
-    int a{0}, b{1};
+void terms_upto_m(std::int64_t m) {
+    std::int64_t a{0}, b{1};
 
     while (a <= m) {
         std::cout << a;
 
-        int temp{a};
+        std::int64_t temp{a};
         a = b;
         b += temp;
 
@@ -46,6 +47,9 @@ int main() {
 
     if (n <= 0) {
         std::cout << "The number must be a posiive integer" << '\n';
+    } else if (n > 93) {
+        std::cout << "Can only show first 93 terms" << '\n';
+        first_n_terms(93);
     } else {
         first_n_terms(n);
     }
@@ -53,7 +57,7 @@ int main() {
     std::cout << "\n\n";
 
     int m{};
-    std::cout << "Enter the limit: ";
+    std::cout << "Enter the (upto) limit: ";
     std::cin >> m;
 
     if (m < 0) {
@@ -62,6 +66,8 @@ int main() {
         std::cout << "0" << '\n';
     } else if (m == 1) {
         std::cout << "0, 1, 1" << '\n';
+    } else if (m >= 1836311903) {
+        std::cout << "Can only show terms upto 1836311902" << '\n';
     } else {
         terms_upto_m(m);
     }

@@ -112,21 +112,20 @@ Record of atomic verification questions, verbatim student answers, grading, and 
 
 ---
 
-## Atom CPP-04 Retest (Chat 3 Opening)
+## Atom CPP-04 Retest Verification (Promotion Rules & uint8_t Stream Output)
 
 ### Statements:
-1. In C++, evaluating the expression `(-5 < 3u)` yields `true` because the signed integer `-5` is mathematically less than the unsigned integer `3`.
-2. If `x` is defined as `std::uint8_t x{65};`, applying the unary plus operator in `std::cout << +x;` promotes `x` to `int`, causing `65` to be printed as an integer rather than the ASCII character `'A'`.
+1. In the expression `int a = -1; unsigned int b = 1; bool result = (a < b);`, `result` evaluates to `true` because the compiler converts `b` to signed `int` to preserve the negative value of `a`.
+2. If `uint8_t val = 65;`, executing `std::cout << val;` prints the character `'A'` because `uint8_t` is an alias for `unsigned char`, whereas `std::cout << +val;` uses the unary `+` operator to promote `val` to `int`, causing `std::cout` to print the numeric representation `65`.
 
 ### Student Answers (Verbatim):
-`f, t`
+`f (signed into unsigned not vice versa), t`
 
 ### Grading & Notes:
-- **Statement 1:** Correct. (In mixed signed/unsigned comparison, `-5` is implicitly converted to `unsigned int`, wrapping around to `4294967291`, which is not `< 3u`).
-- **Statement 2:** Correct. (Unary `+` triggers integral promotion from small integer type `uint8_t` / `unsigned char` to `int`, so `std::cout` treats it as numeric rather than a char).
+- **Statement 1:** Correct. (The usual arithmetic conversions promote the signed operand `int` to `unsigned int`, wrapping `-1` to `4294967295`, making the comparison false).
+- **Statement 2:** Correct. (`uint8_t` is an alias for `unsigned char` and formats as ASCII char; unary `+` triggers integral promotion to `int`).
 
-**Result:** 2 / 2 Correct (100%). Atom CPP-04 fully achieved [x].
+**Result:** 2 / 2 Correct (100%). Atom CPP-04 fully cleared.
 
----
 
 
