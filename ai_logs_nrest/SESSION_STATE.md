@@ -11,11 +11,12 @@
   - CPP-01: Compilation pipeline (preprocess, compile, assemble, link), manual link with `g++ -c`, GCC verification.
   - CPP-02: `main()`, statements, `#include <iostream>`, `std::cout`, `std::cin`, cold-write sum program.
   - CPP-03: Variable definitions, brace initialization, narrowing conversion rejection, naming conventions.
+  - CPP-04 Part 1: Fundamental types (`bool`, `char`, `int`, `unsigned int`, `double`), `sizeof` hardware reporting, `char` as small integer with ASCII mapping and `static_cast<int>`.
+  - CPP-04: Fundamental types (`bool`, `char`, `int`, `unsigned int`, `double`), `sizeof` hardware reporting, `char` as small integer with ASCII mapping and `static_cast<int>`, fixed-width integer types (`<cstdint>`), unsigned modular wraparound vs. signed integer overflow as Undefined Behavior (UB), `uint8_t` character stream formatting. (Pending: fix signed-overflow bugs in p12/p02/p09 + retest).
   - CPP-05: Immutability semantics (`const` runtime immutability vs `constexpr` compile-time evaluation).
   - CPP-06: Arithmetic operators, truncation toward zero in integer division vs Python floor division, dividend-signed modulo vs Python divisor-signed modulo, prefix vs postfix increment (`++x` vs `x++`), comparison operators, logical short-circuiting.
-  - CPP-07: Control flow (`if`/`else if`/`else`, `switch` on integral values which may be compiled to jump tables or branch trees with fallthrough behavior, `while`, `do-while`, `for` loop with block-scoped counter, `break`, `continue`), user-defined functions with `void`, `int`, `bool` return types.
-- **Atoms Partial:**
-  - CPP-04: Fundamental & fixed-width types (pending signed-overflow bug fixes in p12, p02, p09 and 2-statement retest).
+  - CPP-07: Control flow (`if`/`else if`/`else`, `switch` on integral values which may be compiled to a jump table and fallthrough behavior, `while`, `do-while`, `for` loop with block-scoped counter, `break`, `continue`), user-defined functions with `void`, `int`, `bool` return types.
+- **Atoms Partial:** CPP-04 (pending signed-overflow bug fixes in p12/p02/p09 + retest)
 - **Q&A File:** `ai_logs_nrest/qna_and_verification_bank.md`
 - **Reported Student Hours:** 6.0 hrs total (Chat 1: 2.0 hrs, Chat 2: 4.0 hrs)
 - **Next Checkpoint:** P3-5 = CPP-08 part 1 + fix p12/p02/p09 + port p13; P3-6 = CPP-08 part 2 (.h/.cpp, include guards, Makefile) + CPP-09; P3-7 = CPP-10, CPP-11 + ports p14, p06, p18; pass-by-reference = CPP-14 (Block 2), not now.

@@ -27,7 +27,7 @@ if (x > 0) {
 
 ## 2. The `switch` Statement and the Fallthrough Trap
 
-`switch` tests a single integral value (or `enum`/`char`, but **not** `double` or `std::string`) against constant compile-time labels.
+`switch` tests a single integral value (or `enum`/`char`, but **not** `double` or `std::string`) against constant compile-time labels. Depending on case density and compiler optimization, this may be compiled to a jump table or a binary search tree.
 
 ```cpp
 switch (choice) {

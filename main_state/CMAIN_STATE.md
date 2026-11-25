@@ -1,71 +1,80 @@
-# CMAIN Rolling State & Track Audit
+# CMAIN Master Rolling State
 
-**Track:** Phase 3 (C++, Electronics, Digital Logic, Embedded Simulation, Systems)  
-**Role:** `cmain` (Central Planner, Auditor, and Curriculum Architect)  
-**Current Date:** 2026-11-25  
-**Current Pointer:** Phase 3 Block 1, Checkpoint P3-5 (Entry gate: Signed-overflow defect fixes)
-
----
-
-## 1. Verified Track Baseline
-
-- **Logged Hours:** 6.0 hrs total (Chat 1: 2.0 h | Chat 2: 4.0 h; ~1.5 h/checkpoint vs 2.0 h planned).
-- **Atoms Achieved [x]:**
-  - `CPP-01`: Toolchain, compilation stages, manual link with `g++ -c`.
-  - `CPP-02`: Program structure, `main()`, `std::cin`/`std::cout`, cold-write sum.
-  - `CPP-03`: Brace initialization `{}`, narrowing prevention, naming.
-  - `CPP-05`: `const` runtime immutability vs `constexpr` compile-time evaluation.
-  - `CPP-06`: Arithmetic operators, division truncation toward zero, dividend-signed modulo, increment operators.
-  - `CPP-07`: Control flow (`if/else`, `switch` fallthrough, `for`, `while`, `do-while`, `break`, `continue`).
-- **Atoms Partial [~]:**
-  - `CPP-04`: Fundamental & fixed-width types. Held at partial until real-world signed overflow defects are fixed and the 2-statement retest passes.
-- **Verification Score:** 28 / 28 first-pass atomic statements clean (100%).
-- **Mini-Check (12 statements):** 10 clean, 1 wrong (#4: signed vs unsigned comparison implicitly converts signed to unsigned, which can cause `-1 > 1u` to evaluate to true), 1 partial (#12: unary `+` promotes `uint8_t` to `int` for stream printing).
+**File Version:** 1.0  
+**Last Updated:** 2026-11-25  
+**Owner:** `cmain` (Phase 3 Planner / Auditor)  
+**Standard:** Governed by `~/Programing-Workspace/Journey_Docs/PLANNER_CHARTER.md` and `Journey_Docs/00_START_HERE_MASTER.md` §2.
 
 ---
 
-## 2. Real-World Defect Audit (Verified Live with `-fsanitize=undefined -g`)
+## 1. Track Architecture & Current Pointer
 
-All defects flagged by the Claude planner were verified directly in the terminal by compiling with `g++ -std=c++20 -Wall -Wextra -fsanitize=undefined -g`:
+- **Current Track Pointer:** Phase 3, Block 1 (Bits & Basics), Part A.
+- **Chats Completed:** Chat 1 (P3-1 & P3-2), Chat 2 (P3-3 & P3-4).
+- **Current Active Chat:** Ready to launch **Chat 3 of 4 (Checkpoints P3-5 & P3-6)**.
+- **Logged Student Hours:** **6.0 hrs** total (Chat 1: 2.0 h, Chat 2: 4.0 h; ~1.5 h/checkpoint vs 2.0 h planned). Pace ~2 h/week.
+- **Pause Schedule:** C++ pauses Jan–Mar 2027 for CBSE Class 12. Block 1 Part B (CPP-12, CPP-13 gdb, DG-02/03/06, EM-01, SIM-01, formal SD-01, Build 1) resumes Apr–Jun 2027.
+
+---
+
+## 2. Atoms Status & Evidence Ledger
+
+| Atom ID | Description | Status | Evidence / Notes |
+| :--- | :--- | :--- | :--- |
+| **CPP-01** | Toolchain (preprocess, compile, assemble, link; `g++ -c`) | `[x]` Verified | Manual link verified, Q&A 7/7, 0 warnings. |
+| **CPP-02** | Structure (`main()`, statements, `#include`, `cin`/`cout`) | `[x]` Verified | Cold-write sum passed, Q&A 7/7. |
+| **CPP-03** | Variables, brace init `{}` (narrowing caught), naming | `[x]` Verified | Verification 7/7, types demo. |
+| **CPP-04** | Types (`bool`, `char`, `int`, fixed-width `<cstdint>`, overflow) | `[~]` Partial | Unsigned wraparound verified. Blocked on 3 signed-overflow defect fixes & 2-statement retest (signed vs unsigned comparison, unary `+`). |
+| **CPP-05** | Constants (`const` runtime vs `constexpr` compile-time) | `[x]` Verified | Verification 7/7. |
+| **CPP-06** | Operators (truncating `/`, dividend `%`, `++x` vs `x++`, precedence) | `[x]` Verified | Verification 7/7, modulo formula. |
+| **CPP-07** | Control flow (`if`, `switch` fallthrough, loops, `break`/`continue`) | `[x]` Verified | Verification 7/7, ports p12/p02/p09 built. |
+| **CPP-08** | Functions (declaration/definition, pass-by-value, `.h`/`.cpp`, Makefile) | `[ ]` Pending | Target for Chat 3 (P3-5 Part 1, P3-6 Part 2). |
+| **CPP-09** | Scope & lifetime (local, global, shadowing, `static` locals) | `[ ]` Pending | Target for Chat 3 (P3-6). |
+| **CPP-10** | Arrays (C-style UB demo, `std::array`, `std::vector` basics) | `[ ]` Pending | Target for Chat 4 (P3-7). |
+| **CPP-11** | Strings (`std::string` ops, C-string `\0`) | `[ ]` Pending | Target for Chat 4 (P3-7). |
+| **CPP-12** | File I/O with `<fstream>` | `[ ]` Scheduled | Apr–Jun 2027. |
+| **CPP-13** | Debug basics (`-Wall -Wextra`, gdb intro) | `[ ]` Scheduled | Apr–Jun 2027. |
+
+*Note: Pass-by-reference (`&`, `const &`) belongs strictly to Block 2 (`CPP-14`).*
+
+---
+
+## 3. Verified Defects in Ported Code (Chat 3 Fix List)
+
+Real runs under `g++ -std=c++20 -fsanitize=undefined -g` verified these exact failures:
 
 1. **`block_1/src/p12_gcd_lcm.cpp`**:
-   - `(100000, 100000)`: Triggers `runtime error: signed integer overflow: 100000 * 100000 cannot be represented in type 'int'`. Returns `14100` instead of `100000`.
-   - `(0, 0)`: Triggers `runtime error: division by zero` and crashes with `Floating point exception (core dumped)`.
-   - `(-4, 6)`: Returns GCD `6`, LCM `-4`. The Python original rejected non-positive inputs; the C++ port dropped this check.
+   - `(100000, 100000)` $\implies$ runtime error: signed integer overflow ($10^{10} > 2.14 \times 10^9$). Output is `14100` instead of `100000`.
+   - `(0, 0)` $\implies$ runtime error: division by zero, crashes with SIGFPE core dump.
+   - `(-4, 6)` $\implies$ returns GCD 6, LCM -4 (silent drop of input validation present in Python original).
 2. **`block_1/src/p02_prime_check.cpp`**:
-   - `2147483647`: Triggers `runtime error: signed integer overflow: 46341 * 46341 cannot be represented in type 'int'`. Causes infinite execution or wrong composite classification.
-   - `is_prime(0)`, `is_prime(1)`, `is_prime(-5)`: If called directly, returns `true` because the function only checks `n == 2` and loop `d * d <= n`. The function relies on `main()` for input sanitation instead of being correct on its own.
+   - `2147483647` (prime) $\implies$ runtime error: signed integer overflow `46341 * 46341`. Reports "composite".
+   - `is_prime(0)`, `is_prime(1)`, `is_prime(-5)` $\implies$ return `1` (true) when invoked directly because boundary checks were isolated in `main()`.
 3. **`block_1/src/p09_fibonacci_series.cpp`**:
-   - `first_n_terms(48)`: Triggers `runtime error: signed integer overflow: 1836311903 + 1134903170 cannot be represented in type 'int'` and prints negative numbers (`-1323752223`).
-   - `terms_upto_m(2147483647)`: Overflow wraps `a` to negative, causing an **infinite loop** that spews numbers indefinitely.
+   - `first_n_terms(48)` $\implies$ runtime error: signed integer overflow on term 47 ($1836311903 + 1134903170$). Term 48 prints `-1323752223`.
+   - `terms_upto_m(2147483647)` $\implies$ infinite loop / UB.
+
+*Auditor rule: The learner writes all fixes by hand.*
 
 ---
 
-## 3. Scope, Rules & Architectural Decisions
+## 4. Sub-Chat Roster & Context Boundaries
 
-1. **Teacher vs Planner Separation:**
-   - Sub-chats (Teacher bots) teach, quiz, guide, and debug *with* the learner.
-   - Teacher bots **never write code in `block_1/src/`**.
-   - Planner (`cmain`) audits evidence, verifies compilation/sanitizers, maintains track pacing, and keeps cross-chat state synchronized.
-2. **Scope Boundary Enforcement:**
-   - **Pass-by-reference (`&`) belongs strictly in Block 2 (`CPP-14`).** P3-5 covers **pass-by-value only**, functions in-depth, stack frame mechanics, and porting `p13`.
-3. **Workspace Organization:**
-   - `block_1/src/`: Hand-written C++ source files.
-   - `block_1/python_reference/`: CBSE Class 11 reference scripts.
-   - `block_1/notes/`: Conceptual student notes (`Cpp_Basics_B1.md`, etc.).
-   - `ai_logs_nrest/`: Coordination logs (`SESSION_STATE.md`, `qna_and_verification_bank.md`, reports).
-   - `main_state/`: `CMAIN_STATE.md` (this rolling audit file).
+- **Chat 1 of 4 (3.1.1):** P3-1 & P3-2. Completed (2.0 h).
+- **Chat 2 of 4 (3.1.2):** P3-3 & P3-4. Completed (4.0 h).
+- **Chat 3 of 4 (3.1.3):** P3-5 & P3-6. Next.
+  - Sees only `CPP_PATH/`.
+  - Fixes p12, p02, p09 first; administers 2-statement CPP-04 retest.
+  - Teaches CPP-08 part 1 (pass-by-value only); ports p13.
+  - Teaches CPP-08 part 2 (`.h`/`.cpp`, Makefile) & CPP-09.
+- **Chat 4 of 4 (3.1.4):** P3-7 & Block 1 Part A wrap-up. Upcoming.
+  - Ports p14, p06, p18; CPP-10, CPP-11.
 
 ---
 
-## 4. Immediate Roadmap (Block 1 Part A Completion)
+## 5. Decision Log (Phase 3)
 
-- **Chat 3 (P3-5 & P3-6):**
-  - **Fix First (~30–45 mins):** Learner writes fixes for `p12`, `p02`, `p09`. Verify under `-fsanitize=undefined`. Pass CPP-04 retest. Mark `CPP-04` [x].
-  - **P3-5:** CPP-08 Part 1 (function prototypes vs definitions, pass-by-value, stack frames), port `p13_factorial_permutations.cpp` (investigate 20! vs 21! 64-bit overflow), differential test (`diff -u`). Verification statements.
-  - **P3-6:** CPP-08 Part 2 (headers `.h`, source `.cpp`, include guards, multi-file compilation, 10-line `Makefile`), CPP-09 (storage duration, linkage, `static` locals). Cold-write: 2-function library split.
-- **Chat 4 (P3-7 & Part A Wrap-Up):**
-  - `CPP-10` (Arrays, `std::array`, `std::vector`), `CPP-11` (`std::string`), Ports `p06`, `p14`, `p18`. Part A wrap-up.
-- **Deferred to Apr–Jun 2027:**
-  - `CPP-12` (File I/O), `CPP-13` (GDB), `DG-02/03/06`, `EM-01`, `SIM-01`, `SD-01`, Build 1.
-  - C++ track paused Jan–Mar 2027 for CBSE Class 12 preparation.
+- **D-P3-01:** Workspace restructured into modular blocks (`block_1/src/`, `block_1/notes/`, `block_1/python_reference/`). Compiled binaries gitignored.
+- **D-P3-02:** AI coordination files centralized in `ai_logs_nrest/` (`SESSION_STATE.md`, `CPP_TRACK_CONTEXT.md`, `qna_and_verification_bank.md`, `report/`).
+- **D-P3-03:** Pass-by-reference confirmed locked to Block 2 (CPP-14); P3-5 restricted to pass-by-value.
+- **D-P3-04:** `main_state/CMAIN_STATE.md` established as the single rolling state handover document for CMAIN.

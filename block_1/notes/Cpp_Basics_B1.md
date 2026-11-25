@@ -94,6 +94,13 @@ My personal notebook, mental models, and cheat sheets as I transition from Pytho
   1. **Unsigned Overflow (for unsigned integer) [Well defined]:** cpp just performs modulo $2^N$. For `std::uint8_t` (range $0$ to $255$), $255 + 1$ is guaranteed to wrap around to $0$.
   2. **Signed overflow (for signed integers) [Undefined behaviour]:** If a signed overflow occurs then there is no guarantee; the program might crash, produce garbage, or compiler's optimizer might erase your safety checks assuming overflow "is impossible".
   - **Python Equivalent Overflow:** Doesn't happen (Python automatically expands integers).
+- **Comaprison:** If you compare a signed integer with an unsigned one, then the signed is turned into the unsigned (at same size/byte), then the comparison is performed
+    ```cpp
+    std::cout << "(-5 < 3u): " << (-5 < 3u);    // (-5 < 3u): 0
+    std::cout << "(3u < -5): " << (3u < -5);    // (3u < -5): 1
+    std::cout << "(-5 > 3u): " << (-5 > 3u);    // (-5 > 3u): 1
+    std::cout << "(3u > -5): " << (3u > -5);    // (3u > -5): 0
+    ```
 
 ### 2.4 Division, Modulo, Increment Operators
 - **Arithmetic Operators:** A slight difference in division (`/`) and modulo (`%`):

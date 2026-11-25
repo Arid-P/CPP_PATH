@@ -110,4 +110,23 @@ Record of atomic verification questions, verbatim student answers, grading, and 
 
 **Result:** 7 / 7 Correct (100%). Checkpoint P3-4 verified.
 
+---
+
+## Atom CPP-04 Retest (Chat 3 Opening)
+
+### Statements:
+1. In C++, evaluating the expression `(-5 < 3u)` yields `true` because the signed integer `-5` is mathematically less than the unsigned integer `3`.
+2. If `x` is defined as `std::uint8_t x{65};`, applying the unary plus operator in `std::cout << +x;` promotes `x` to `int`, causing `65` to be printed as an integer rather than the ASCII character `'A'`.
+
+### Student Answers (Verbatim):
+`f, t`
+
+### Grading & Notes:
+- **Statement 1:** Correct. (In mixed signed/unsigned comparison, `-5` is implicitly converted to `unsigned int`, wrapping around to `4294967291`, which is not `< 3u`).
+- **Statement 2:** Correct. (Unary `+` triggers integral promotion from small integer type `uint8_t` / `unsigned char` to `int`, so `std::cout` treats it as numeric rather than a char).
+
+**Result:** 2 / 2 Correct (100%). Atom CPP-04 fully achieved [x].
+
+---
+
 
